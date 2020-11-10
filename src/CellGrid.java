@@ -89,12 +89,13 @@ public class CellGrid {
 		}
 		return newGrid;		
 	}
-	/*
-	public boolean contains(Object x) {
-		// TODO Auto-generated method stub
+	
+	public boolean contains(boolean x) {
+		
+		//return get();
 		return false;
 	}
-	*/
+	
 
 	/*
 	public int[] getLocation(Object x) {
