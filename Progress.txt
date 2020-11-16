@@ -1,0 +1,13 @@
+Final Project Progress Report
+
+The main parts of the Game of Life project have been completed:
+
+   STATE.java is completed
+   GameOfLife.java has been completed except for the ASCII portion
+   CellGrid is halfway completed
+   javadoc comments have been added
+   
+What is left to do:
+   
+   Formatting/adding last-minute creative touches
+   The rest of CellGrid
