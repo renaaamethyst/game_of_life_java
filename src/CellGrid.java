@@ -11,7 +11,6 @@ public class CellGrid {
 	
 	public CellGrid(int r, int c) {
 		grid = new boolean[r][c];
-		//numElements = 0;
 		numRows = r;
 		numCols = c;
 	}
@@ -29,8 +28,6 @@ public class CellGrid {
 		if(checkInRange(r, c))
 			return grid[r][c];
 		return false;
-		// TODO Auto-generated method stub
-		//return null;
 	}
 
 	public boolean set(int r, int c, boolean x) {
@@ -45,14 +42,11 @@ public class CellGrid {
 	
 	public void add(int r, int c, boolean x) {
 		set(r,c,x);
-		// TODO Auto-generated method stub
-		
 	}
 	
 
 	
 	public boolean remove(int r, int c) {
-		// TODO Auto-generated method stub
 		boolean val = get(r,c);
 		set(r,c,false);
 		return val;
@@ -61,18 +55,15 @@ public class CellGrid {
 
 	/*
 	public int size() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	*/
 
 	public int numRows() {
-		// TODO Auto-generated method stub
 		return numRows;
 	}
 
 	public int numColumns() {
-		// TODO Auto-generated method stub
 		return numCols;
 	}
 
@@ -99,7 +90,6 @@ public class CellGrid {
 
 	/*
 	public int[] getLocation(Object x) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	*/
@@ -107,20 +97,17 @@ public class CellGrid {
 	/*
 
 	public Object[][] toArray() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	*/
 
 	/*
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	*/
 
 	public void clear() {
-		// TODO Auto-generated method stub
 		for(int r = 0; r < numRows; r ++) {
 			for(int c = 0; c < numCols; c ++) {
 				grid[r][c] = false;
