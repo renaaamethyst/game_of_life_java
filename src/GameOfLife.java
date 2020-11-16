@@ -188,7 +188,6 @@ public class GameOfLife extends Canvas implements Runnable {
 					//board.add(r, c, (byte) 0);
 					boolGrid.set(r, c, true);					
 				}				
-				
 			}
 		}
 	}
