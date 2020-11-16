@@ -11,7 +11,6 @@ import java.util.Random;
 
 /**
  * Main class of the program
- 
  * PRESS "R" AT ANY TIME FOR SPECIAL EFFECTS
  */
 public class GameOfLife extends Canvas implements Runnable {
@@ -85,12 +84,10 @@ public class GameOfLife extends Canvas implements Runnable {
 	/**
 	 * counts the number of neighboors each cell has
 	 * 
-	 * @param r
-	 *            location of the cell
-	 * @param c
-	 *            location of the cell
+	 * @param r location of the cell
+	 * @param c location of the cell
 	 * @param sm
-	 *            SparseMatrix<Byte> where the cell (r, c) is located
+	 * SparseMatrix<Byte> where the cell (r, c) is located
 	 * @return return the number of neighbors, if any
 	 */
 	public static byte coutnNeighbors(int r, int c, CellGrid sm) {
@@ -133,9 +130,7 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	/**
 	 * Generates the next generation of cells
-	 * 
-	 * @param sm
-	 *            
+	 * @param sm     
 	 * @return the new generaion of the the sm Param
 	 */
 	public static CellGrid nextGen(CellGrid  sm) {
@@ -195,10 +190,9 @@ public class GameOfLife extends Canvas implements Runnable {
 
 
 	/**
-	 * subtitutes the board with a new board form an inamge
-	 * 
+	 * subtitutes the board with a new board forming an image
 	 * @param image
-	 *            Buffered image contaiining a pattern. Only Black And White
+	 * Buffered image contaiining a pattern. Only Black And White
 	 */
 	private static void loadPreState(BufferedImage image) {
 		int w = image.getWidth();
@@ -323,7 +317,6 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	/**
 	 * Main Method
-	 * 
 	 * @param args which is a string array of arguments
 	 */
 	public static void main(String[] args) {
