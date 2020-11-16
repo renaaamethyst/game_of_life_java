@@ -3,6 +3,7 @@ Rules of the game:
 	Any live cell with two or three live neighbors lives on to the next generation. 
 	Any live cell with more than three live neighbors dies, as if by overpopulation. 
 	Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction. 
+
 User input: 
 	Size of grid 
 	Number of live cells 
