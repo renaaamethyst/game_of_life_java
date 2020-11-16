@@ -5,9 +5,7 @@ Rules of the game:
 	Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction. 
 
 User input: 
-	Size of grid 
-	Number of live cells 
-	Location of live cells 
+	Size of grid, number of live cells, and location of live cells 
 	
 	Program initialises: 
 	Rest of cells as dead Live cells are represented as 1 in array 
