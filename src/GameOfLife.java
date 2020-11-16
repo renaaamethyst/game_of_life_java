@@ -324,7 +324,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	/**
 	 * Main Method
 	 * 
-	 * @param args
+	 * @param args which is a string array of arguments
 	 */
 	public static void main(String[] args) {
 		//new Window(1500, 800, "CS Final 6/9/16", new GameOfLife());
