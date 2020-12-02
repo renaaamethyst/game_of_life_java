@@ -1,19 +1,10 @@
 import java.util.*;
 
 public class CellGrid {
-
-	// private ArrayList<Cell<anyType>> list;
 	private boolean[][] grid;
-	// private int numElements;
 	private int numRows, numCols;
-	// private char blank = '-';
 	private static int TEMP = 0;
-	/**
-	 * constructor that initializes grid and sets private data members to the values passed-in
-	 * 
-	 * @param r denoting rows 
-	 * @param c denoting columns
-	 */
+
 	public CellGrid(int r, int c) {
 		grid = new boolean[r][c];
 		numRows = r;
@@ -34,11 +25,10 @@ public class CellGrid {
 	}
 
 	/**
-	 * checks if parameters are in range of grid. If true, returns boolean value in 
-	 * that position. Else, returns false.
-	 * @param r denoting row
-	 * @param c denoting column
-	 * @return boolean value
+	 * Returns the cell at (r, c)
+	 * @param r is the row
+	 * @param c is the column
+	 * @return grid[r][c] if (r, c) is in range else return false
 	 */
 	public boolean get(int r, int c) {
 		if (checkInRange(r, c))
@@ -47,11 +37,11 @@ public class CellGrid {
 	}
 
 	/**
-	 * checks if parameters are in range of grid. If true, sets grid position to 
-	 * given value
-	 * @param r denoting row
-	 * @param c denoting column
-	 * @param x denoting a boolean value
+	 * Sets the the location at (r, c)
+	 * @param r is the row
+	 * @param c is the column
+	 * @param x is whether the cell is dead or alive
+	 * @return true if the cell is successfully set, false otherwise
 	 */
 	public boolean set(int r, int c, boolean x) {
 		// TODO Auto-generated method stub
@@ -63,36 +53,19 @@ public class CellGrid {
 	}
 
 	/**
-	  * removes "cell" by changing boolean value to false
-	 * @param r denoting row
-	 * @param c denoting column
-	 * @return removed boolean value
+	 * Sets the cell at (r, c) as dead or false
+	 * @param r is the row
+	 * @param c is the column
+	 * @return true if successfully removed, false otherwise
 	 */
 	public boolean remove(int r, int c) {
-		boolean val = get(r, c);
-		set(r, c, false);
-		return val;
-	}
-	
-	/**
-	 * getter
-	 * @return number of rows in grid
-	 */
-	public int getR() {
-		return numRows;
-	}
+		if(set(r, c, false)) return true;
+		return false;
+	}	
+
 
 	/**
-	 * getter
-	 * @return number of columns in grid
-	 */
-	public int getC() {
-		return numCols;
-	}
-
-	/**
-	 * clones grid
-	 * @return new grid
+	 * Clones the cell grid and returns the clone
 	 */
 	public CellGrid clone() {
 		CellGrid newGrid = new CellGrid(this.getR(), this.getC());
@@ -107,7 +80,6 @@ public class CellGrid {
 		return newGrid;
 	}
 
-	
 	/**
 	 * Checks the grid at (r, c) if its filled or not
 	 * @param r is the row
@@ -120,9 +92,6 @@ public class CellGrid {
 		}else return true;
 	}
 
-	/**
-	 * clears grid by making all values false
-	 */
 	public void clear() {
 		for (int r = 0; r < numRows; r++) {
 			for (int c = 0; c < numCols; c++) {
@@ -132,7 +101,23 @@ public class CellGrid {
 	}
 
 	/**
-	 * returns grid
+	 * Getter method for rows
+	 * @return the number of rows
+	 */
+	public int getR() {
+		return this.numRows;
+	}
+
+	/**
+	 * Getter method for columns
+	 * @return the number fo columns
+	 */
+	public int getC() {
+		return this.numCols;
+	}
+
+	/**
+	 * Converts the grid to a string square "*" for live cells and " " for dead cells
 	 */
 	public String toString() {
 		String ans = "";
