@@ -1,16 +1,12 @@
 import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- * Main class of the program PRESS "R" AT ANY TIME FOR SPECIAL EFFECTS
- */
+
+
 public class GameOfLife extends Canvas implements Runnable {
 	private static final long serialVersionUID = 7417043461517810865L;
 
@@ -29,7 +25,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static boolean cpuFree = false; // indicate when the program is ready
 											// for a heavy calculation
 
-	private boolean running = false; // if the thread is running
+	private static boolean running = false; // if the thread is running
 	private Thread thread; // main thread
 
 	public static int WIDTH, HEIGHT; // dimensions of the window
@@ -179,32 +175,12 @@ public class GameOfLife extends Canvas implements Runnable {
 	}
 
 	/**
-	 * end the main thread
-	 */
-	public synchronized void stop() {
-		try {
-			thread.join();
-			running = false;
-		} catch (Exception e) {
-		}
-
-	}
-
-	/**
-	 * Pauses the game Un-used
-	 */
-	public static void pause() {
-		state = STATE.PAUSE;
-
-	}
-
-	/**
 	 * Renders the cells
 	 */
 	private void render() {
 
 		// System.out.print(ESC + "2J");
-		System.out.println("\n @@@@@@@@@@ " + generations + " @@@@@@@@@@  \n ");
+		System.out.println("GENERATION: " + generations);
 		System.out.println(boolGrid.toString());
 		// boolGrid.toString();
 	}
@@ -223,6 +199,7 @@ public class GameOfLife extends Canvas implements Runnable {
 		int updates = 0;
 		int frames = 0;
 		while (running) {
+
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -232,6 +209,7 @@ public class GameOfLife extends Canvas implements Runnable {
 			}
 			cpuFree = true;
 			render();
+			
 
 			/*
 			 * if (state == STATE.START) startSeq = nextGen(startSeq);
@@ -278,16 +256,17 @@ public class GameOfLife extends Canvas implements Runnable {
 
 		while (!correctIn) {
 			System.out
-					.println("Would you like to enter the dimensions(Y or N) (Default is Height = 25 and Width = 50)?");
+					.println("Would you like to enter the dimensions(Y or N) (Default is using a randomly-generated dimensions)?");
 			in = scan.next();
 			if (in.equals("Y")) {
 				while (!correctNumH) {
 					System.out.print("Enter the height: ");
 					try {
-						HEIGHT = scan.nextInt();
+						HEIGHT = Integer.parseInt(scan.next());
 						correctNumH = true;
 					} catch (NumberFormatException ne) {
 						System.out.println("Please enter a number!");
+						continue;
 					}
 					if (HEIGHT <= 0) {
 						System.out.println("Please enter a positive number!");
@@ -297,10 +276,11 @@ public class GameOfLife extends Canvas implements Runnable {
 				while (!correctNumW) {
 					System.out.print("Enter the width: ");
 					try {
-						WIDTH = scan.nextInt();
+						WIDTH = Integer.parseInt(scan.next());
 						correctNumW = true;
 					} catch (NumberFormatException ne) {
 						System.out.println("Please enter a number!");
+						continue;
 					}
 					if (WIDTH <= 0) {
 						System.out.println("Please enter a positive number!");
@@ -309,8 +289,10 @@ public class GameOfLife extends Canvas implements Runnable {
 				}
 				correctIn = true;
 			} else if (in.equals("N")) {
+				boardLength = (int) ((Math.random()*50) +1);
 				WIDTH = boardLength;
-				HEIGHT = boardLength / 2;
+				boardLength = (int) ((Math.random()*50) +1);
+				HEIGHT = boardLength;
 				correctIn = true;
 			} else {
 				System.out.println("Please enter Y for yes and N for no!");
@@ -326,10 +308,11 @@ public class GameOfLife extends Canvas implements Runnable {
 				while (!correctCount) {
 					System.out.print("Enter the starting live-cell count (Enter a number <= the grid area: " + (HEIGHT * WIDTH) + "): ");
 					try {
-						COUNT = scan.nextInt();
+						COUNT = Integer.parseInt(scan.next());
 						correctCount = true;
 					} catch (NumberFormatException ne) {
 						System.out.println("Please enter a number!");
+						continue;
 					}
 					if (COUNT <= 0) {
 						System.out.println("Please enter a positive number!");
@@ -342,6 +325,7 @@ public class GameOfLife extends Canvas implements Runnable {
 				}
 				correctIn = true;
 			} else if (in2.equals("N")) {
+				COUNT = (int) ((Math.random()*(HEIGHT*WIDTH)) + (HEIGHT*WIDTH)/10);
 				correctIn = true;
 			} else {
 				System.out.println("Please enter Y for yes and N for no!");
