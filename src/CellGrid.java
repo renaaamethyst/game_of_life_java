@@ -137,6 +137,8 @@ public class CellGrid {
 			else
 				ans += "#\n";
 		}
+		if(ans.indexOf('*') == -1)
+			System.exit(0);
 		return ans;
 
 	}
