@@ -3,7 +3,6 @@ import java.util.*;
 public class CellGrid {
 	private boolean[][] grid;
 	private int numRows, numCols;
-	private static int TEMP = 0;
 
 	public CellGrid(int r, int c) {
 		grid = new boolean[r][c];
@@ -44,7 +43,6 @@ public class CellGrid {
 	 * @return true if the cell is successfully set, false otherwise
 	 */
 	public boolean set(int r, int c, boolean x) {
-		// TODO Auto-generated method stub
 		if (checkInRange(r, c)) {
 			grid[r][c] = x;
 			return true;
