@@ -20,9 +20,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	public int cellZoom = 10; // how many pixels each cell measures
 	public double theta = 0; // rotation effect
 
-	public static boolean cpuFree = false; // indicate when the program is ready
-											// for a heavy calculation
-
+	public static boolean cpuFree = false; // indicate when the program is ready for a heavy calculation
 	private static boolean running = false; // if the thread is running
 	private Thread thread; // main thread
 
