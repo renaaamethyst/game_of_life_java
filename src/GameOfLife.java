@@ -11,7 +11,6 @@ public class GameOfLife extends Canvas implements Runnable {
 	private static final long serialVersionUID = 7417043461517810865L;
 
 	public static CellGrid boolGrid;
-	public static CellGrid boolSeq;
 
 	public static int boardLength = 50;// set to 150 // the with of the board in cells
 
@@ -42,34 +41,22 @@ public class GameOfLife extends Canvas implements Runnable {
 	Random rand = new Random(); // randomness
 
 	/**
-	 * Initializes the game sets the two sparse matrices, populates them, loads up a
-	 * spawner for the initial screen, and assigns mouse control to different
-	 * classes
+	 * Initializes the grid with size Height x Width and populates it
 	 */
 	public void init() {
 
 		boolGrid = new CellGrid(HEIGHT, WIDTH);
-		boolSeq = new CellGrid(HEIGHT, WIDTH);
 
-
-
-		// ********************
-		/*
-		 * for (int r = 0; r < 80; r++) { for (int c = 0; c < 80; c++) { if
-		 * (startSeq.get(r, c) != null) { temp.add(c, r, (byte) 0); } } }
-		 */
-		// ********************
 		populate();
 
 	}
 
 	/**
-	 * counts the number of neighbors each cell has
-	 * 
+	 * counts the number of live neighbors each cell has
 	 * @param r  location of the cell
 	 * @param c  location of the cell
-	 * @param sm SparseMatrix<Byte> where the cell (r, c) is located
-	 * @return return the number of neighbors, if any
+	 * @param sm is the grid where the cell (r, c) is located
+	 * @return return the number of live neighbors, if any
 	 */
 	public static byte countNeighbors(int r, int c, CellGrid sm) {
 		byte neighbors = 0;
@@ -111,12 +98,11 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	/**
 	 * Generates the next generation of cells
-	 * 
 	 * @param sm
-	 * @return the new generation of the the sm param
+	 * @return the new generation of sm
 	 */
 	public static CellGrid nextGen(CellGrid sm) {
-		// SparseMatrix<Byte> alive = sm.clone();
+
 
 		ArrayList<int[]> deadIndex = new ArrayList<>();
 		CellGrid alive = sm.clone();
@@ -126,14 +112,13 @@ public class GameOfLife extends Canvas implements Runnable {
 				byte current = countNeighbors(r, c, sm);
 				if (sm.get(r, c) == false) {
 					if (current == (byte) 3) {
-						// alive.add(r, c, current);
+
 						alive.set(r, c, true);
 					}
 				} else {
 					if (current < (byte) 2 || current > (byte) 3)
 						deadIndex.add(new int[] { r, c });
 					else
-						// alive.set(r, c, current);
 						alive.set(r, c, true);
 
 				}
@@ -148,13 +133,13 @@ public class GameOfLife extends Canvas implements Runnable {
 	}
 
 	/**
-	 * populates the board with random cells
+	 *Populates the board with the number of live cells the user chooses, or a random number
 	 */
 	public static void populate() {
 		while(COUNT > 0) {
 			for (int r = 0; r < HEIGHT; r++) {
 				for(int c = 0; c < WIDTH; c++) {
-					if(Math.random() > 0.95 && COUNT>0 && !boolGrid.contains(true)) {
+					if(Math.random() > 0.95 && COUNT>0 && !boolGrid.full(r, c)) {
 						boolGrid.set(r, c, true);
 						COUNT = COUNT - 1;
 					}
@@ -175,18 +160,15 @@ public class GameOfLife extends Canvas implements Runnable {
 	}
 
 	/**
-	 * Renders the cells
+	 * Displays the grid on the console
 	 */
 	private void render() {
-
-		// System.out.print(ESC + "2J");
 		System.out.println("GENERATION: " + generations);
 		System.out.println(boolGrid.toString());
-		// boolGrid.toString();
 	}
 
 	/**
-	 * Popular game loop that does math and calculates a framerate Calls render(); I
+	 * A loop that calculates the frame rate and updates the console with the new grid
 	 */
 	public void run() {
 		init();
@@ -211,19 +193,16 @@ public class GameOfLife extends Canvas implements Runnable {
 			render();
 			
 
-			/*
-			 * if (state == STATE.START) startSeq = nextGen(startSeq);
-			 */
 
 			if (state == STATE.GAME) {
-				// board = nextGen(board);
+
 				boolGrid = nextGen(boolGrid);
 				generations++;
-				// this.sleep(100);
+
 				try {
 					this.thread.sleep(DELAY);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 			}
@@ -243,7 +222,7 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	/**
 	 * Main Method
-	 * 
+	 * Checks for user input as well as exception handling and then calls the start of the grid once all the information has been filled out
 	 * @param args which is a string array of arguments
 	 */
 	public static void main(String[] args) {
@@ -256,7 +235,7 @@ public class GameOfLife extends Canvas implements Runnable {
 
 		while (!correctIn) {
 			System.out
-					.println("Would you like to enter the dimensions(Y or N) (Default is using a randomly-generated dimensions)?");
+					.println("Would you like to enter the dimensions(Y or N) (Default is using a randomly-generated dimensions of max 50 and min 5)?");
 			in = scan.next();
 			if (in.equals("Y")) {
 				while (!correctNumH) {
@@ -289,9 +268,9 @@ public class GameOfLife extends Canvas implements Runnable {
 				}
 				correctIn = true;
 			} else if (in.equals("N")) {
-				boardLength = (int) ((Math.random()*50) +1);
+				boardLength = (int) ((Math.random()*50) + 5);
 				WIDTH = boardLength;
-				boardLength = (int) ((Math.random()*50) +1);
+				boardLength = (int) ((Math.random()*50) + 5);
 				HEIGHT = boardLength;
 				correctIn = true;
 			} else {
