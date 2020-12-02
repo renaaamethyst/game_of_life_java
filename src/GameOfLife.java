@@ -1,7 +1,6 @@
 import java.awt.Canvas;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,12 +14,15 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static int boardLength = 50;// set to 150 // the with of the board in cells
 
 
-	public static int generations = 0; // keep count of the number of generations
+	public static int generations = 0; // keep count of the number of
+										// generations
 	public static int frames = 0; // inform the framerate
 	public int cellZoom = 10; // how many pixels each cell measures
 	public double theta = 0; // rotation effect
 
-	public static boolean cpuFree = false; // indicate when the program is ready for a heavy calculation
+	public static boolean cpuFree = false; // indicate when the program is ready
+											// for a heavy calculation
+
 	private static boolean running = false; // if the thread is running
 	private Thread thread; // main thread
 
