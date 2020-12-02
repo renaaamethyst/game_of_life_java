@@ -17,10 +17,9 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static CellGrid boolGrid;
 	public static CellGrid boolSeq;
 
-	public static int boardLength = 50;// the with of the board in cells
+	public static int boardLength = 50;// set to 150 // the with of the board in cells
 
-	public static int[] popR; // used to populate the board
-	public static int[] popC; // used to populate the board
+
 	public static int generations = 0; // keep count of the number of
 										// generations
 	public static int frames = 0; // inform the framerate
@@ -37,7 +36,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static int COUNT = 0; // starting live-cell count, if inputed by user
 
 	private BufferedImage preState = null; // contain the image of a prestate
-
+	// public static STATE state = STATE.START; // keeps the state of the program
 	public static STATE state = STATE.GAME;
 
 	final static String ESC = "\033["; // for clearing out stuff
@@ -48,16 +47,22 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	/**
 	 * Initializes the game sets the two sparse matrices, populates them, loads up a
-	 * spawner for the initial screen
+	 * spawner for the initial screen, and assigns mouse control to different
+	 * classes
 	 */
 	public void init() {
 
 		boolGrid = new CellGrid(HEIGHT, WIDTH);
 		boolSeq = new CellGrid(HEIGHT, WIDTH);
 
-		popR = new int[boardLength / 10];
-		popC = new int[boardLength / 10];
 
+
+		// ********************
+		/*
+		 * for (int r = 0; r < 80; r++) { for (int c = 0; c < 80; c++) { if
+		 * (startSeq.get(r, c) != null) { temp.add(c, r, (byte) 0); } } }
+		 */
+		// ********************
 		populate();
 
 	}
@@ -115,6 +120,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * @return the new generation of the the sm param
 	 */
 	public static CellGrid nextGen(CellGrid sm) {
+		// SparseMatrix<Byte> alive = sm.clone();
 
 		ArrayList<int[]> deadIndex = new ArrayList<>();
 		CellGrid alive = sm.clone();
@@ -124,12 +130,14 @@ public class GameOfLife extends Canvas implements Runnable {
 				byte current = countNeighbors(r, c, sm);
 				if (sm.get(r, c) == false) {
 					if (current == (byte) 3) {
+						// alive.add(r, c, current);
 						alive.set(r, c, true);
 					}
 				} else {
 					if (current < (byte) 2 || current > (byte) 3)
 						deadIndex.add(new int[] { r, c });
 					else
+						// alive.set(r, c, current);
 						alive.set(r, c, true);
 
 				}
@@ -147,24 +155,15 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * populates the board with random cells
 	 */
 	public static void populate() {
-
-		for (int i = 0; i < popR.length; i++) {
-			if(COUNT > 0 && i == 0) {
-				popR[i] = COUNT;
-				popC[i] = COUNT;
-			}
-			popR[i] = (int) (Math.random() * (popR.length * 10 + 1));
-			popC[i] = (int) (Math.random() * (popR.length * 10 + 1));
-		}
-
-		float ofset = 0.9f;
-
-		for (int r = 0; r < HEIGHT / 2; r++) {
-			for (int c = 0; c < WIDTH; c++) {
-				if (Math.random() > ofset) {
-					boolGrid.set(r, c, true);
+		while(COUNT > 0) {
+			for (int r = 0; r < HEIGHT; r++) {
+				for(int c = 0; c < WIDTH; c++) {
+					if(Math.random() > 0.95 && COUNT>0 && !boolGrid.contains(true)) {
+						boolGrid.set(r, c, true);
+						COUNT = COUNT - 1;
+					}
 				}
-			}
+ 			}
 		}
 	}
 
@@ -192,6 +191,14 @@ public class GameOfLife extends Canvas implements Runnable {
 	}
 
 	/**
+	 * Pauses the game Un-used
+	 */
+	public static void pause() {
+		state = STATE.PAUSE;
+
+	}
+
+	/**
 	 * Renders the cells
 	 */
 	private void render() {
@@ -204,7 +211,6 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	/**
 	 * Popular game loop that does math and calculates a framerate Calls render(); I
-	 * did not write this method
 	 */
 	public void run() {
 		init();
