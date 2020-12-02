@@ -107,13 +107,17 @@ public class CellGrid {
 		return newGrid;
 	}
 
+	
 	/**
-	 * 
-	 * @param x
-	 * @return
+	 * Checks the grid at (r, c) if its filled or not
+	 * @param r is the row
+	 * @param c is the column
+	 * @return true if its filled, false if its not
 	 */
-	public boolean contains(boolean x) {
-		return false;
+	public boolean full(int r, int c) {
+		if(grid[r][c]!=true) {
+			return false;
+		}else return true;
 	}
 
 	/**
