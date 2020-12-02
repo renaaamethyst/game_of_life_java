@@ -22,7 +22,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static int[] popR; // used to populate the board
 	public static int[] popC; // used to populate the board
 	public static int generations = 0; // keep count of the number of
-										// generations
+										// genenrations
 	public static int frames = 0; // inform the framerate
 	public int cellZoom = 10; // how many pixels each cell measures
 	public double theta = 0; // rotation effect
@@ -34,7 +34,6 @@ public class GameOfLife extends Canvas implements Runnable {
 	private Thread thread; // main thread
 
 	public static int WIDTH, HEIGHT; // dimensions of the window
-	public static int COUNT = 0; // starting live-cell count, if inputed by user
 
 	private BufferedImage preState = null; // contain the image of a prestate
 	// public static STATE state = STATE.START; // keeps the state of the program
@@ -47,19 +46,18 @@ public class GameOfLife extends Canvas implements Runnable {
 	Random rand = new Random(); // randomness
 
 	/**
-	 * Initializes the game sets the two sparse matrices, populates them, loads up a
-	 * spawner for the initial screen, and assigns mouse control to different
-	 * classes
+	 * Initializes the game sets the two sparse matices, populates them loads up a
+	 * spawner for the initial screen asigns mouse contol to different classes
 	 */
 	public void init() {
-		if (HEIGHT == 0) {
+		if(HEIGHT == 0) {
 			WIDTH = boardLength;
 			HEIGHT = boardLength / 2;
 		}
-
-		boolGrid = new CellGrid(boardLength / 2, boardLength);
-		boolSeq = new CellGrid(boardLength / 2, boardLength);
-
+		
+		boolGrid = new CellGrid(HEIGHT, WIDTH);
+		boolSeq = new CellGrid(HEIGHT, WIDTH);
+		
 		popR = new int[boardLength / 10];
 		popC = new int[boardLength / 10];
 
@@ -74,14 +72,14 @@ public class GameOfLife extends Canvas implements Runnable {
 	}
 
 	/**
-	 * counts the number of neighbors each cell has
+	 * counts the number of neighboors each cell has
 	 * 
 	 * @param r  location of the cell
 	 * @param c  location of the cell
 	 * @param sm SparseMatrix<Byte> where the cell (r, c) is located
 	 * @return return the number of neighbors, if any
 	 */
-	public static byte countNeighbors(int r, int c, CellGrid sm) {
+	public static byte coutnNeighbors(int r, int c, CellGrid sm) {
 		byte neighbors = 0;
 
 		if (r == 0 || c == 0 || r == sm.getR() - 1 || c == sm.getC() - 1) {
@@ -123,7 +121,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * Generates the next generation of cells
 	 * 
 	 * @param sm
-	 * @return the new generation of the the sm param
+	 * @return the new generaion of the the sm Param
 	 */
 	public static CellGrid nextGen(CellGrid sm) {
 		// SparseMatrix<Byte> alive = sm.clone();
@@ -133,7 +131,7 @@ public class GameOfLife extends Canvas implements Runnable {
 
 		for (int r = 0; r < sm.getR(); r++) {
 			for (int c = 0; c < sm.getC(); c++) {
-				byte current = countNeighbors(r, c, sm);
+				byte current = coutnNeighbors(r, c, sm);
 				if (sm.get(r, c) == false) {
 					if (current == (byte) 3) {
 						// alive.add(r, c, current);
@@ -163,19 +161,14 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static void populate() {
 
 		for (int i = 0; i < popR.length; i++) {
-			if(COUNT > 0 && i == 0) {
-				popR[i] = COUNT;
-				popC[i] = COUNT;
-			}
 			popR[i] = (int) (Math.random() * (popR.length * 10 + 1));
 			popC[i] = (int) (Math.random() * (popR.length * 10 + 1));
 		}
-
 		float ofset = 0.9f;
 
-		for (int r = 0; r < boardLength / 2; r++) {
+		for (int r = 0; r < HEIGHT; r++) {
 			// for (int c = 0; c < boardLength; c++) {
-			for (int c = 0; c < boardLength; c++) {
+			for (int c = 0; c < WIDTH; c++) {
 				if (Math.random() > ofset) {
 					// board.add(r, c, (byte) 0);
 					boolGrid.set(r, c, true);
@@ -185,9 +178,9 @@ public class GameOfLife extends Canvas implements Runnable {
 	}
 
 	/**
-	 * substitutes the board with a new board forming an image
+	 * subtitutes the board with a new board forming an image
 	 * 
-	 * @param image Buffered image containing a pattern. Only Black And White
+	 * @param image Buffered image contaiining a pattern. Only Black And White
 	 */
 	private static void loadPreState(BufferedImage image) {
 		int w = image.getWidth();
@@ -317,75 +310,48 @@ public class GameOfLife extends Canvas implements Runnable {
 		Scanner scan = new Scanner(System.in);
 		boolean correctNumH = false;
 		boolean correctNumW = false;
-		boolean correctIn = false;
+		boolean correctIn  = false;
 		String in = "";
-		String in2 = "";
-
-		while (!correctIn) {
-			System.out
-					.println("Would you like to enter the dimensions(Y or N) (Default is Height = 25 and Width = 50)?");
+		
+		while(!correctIn) {
+			System.out.println("Would you like to enter the dimensions(Y or N) (Default is Height = 25 and Width = 50)?");
 			in = scan.next();
-			if (in.equals("Y")) {
-				while (!correctNumH) {
+			if(in.equals("Y")) {
+				while(!correctNumH) {
 					System.out.print("Enter the height: ");
 					try {
 						HEIGHT = scan.nextInt();
-						correctNumH = true;
-					} catch (NumberFormatException ne) {
+						correctNumH = true; 
+					}catch(NumberFormatException ne) {
 						System.out.println("Please enter a number!");
 					}
-					if (HEIGHT <= 0) {
+					if(HEIGHT <= 0) {
 						System.out.println("Please enter a positive number!");
 						correctNumH = false;
 					}
 				}
-				while (!correctNumW) {
+				while(!correctNumW) {
 					System.out.print("Enter the width: ");
 					try {
 						WIDTH = scan.nextInt();
-						correctNumW = true;
-					} catch (NumberFormatException ne) {
+						correctNumW = true; 
+					}catch(NumberFormatException ne) {
 						System.out.println("Please enter a number!");
 					}
-					if (WIDTH <= 0) {
+					if(WIDTH <= 0) {
 						System.out.println("Please enter a positive number!");
 						correctNumW = false;
 					}
 				}
 				correctIn = true;
-			} else if (in.equals("N")) {
+			}else if(in.equals("N")) {
 				correctIn = true;
-			} else {
+			}else {
 				System.out.println("Please enter Y for yes and N for no!");
 			}
 		}
-		correctIn = false;
-		boolean correctCount = false;
-		while (!correctIn) {
-			System.out.println(
-					"Would you like to enter the starting live-cell count?(Y or N) (Default is using a randomly-generated count.");
-			in2 = scan.next();
-			if (in2.equals("Y")) {
-				while (!correctCount) {
-					System.out.print("Enter the starting live-cell count: ");
-					try {
-						COUNT = scan.nextInt();
-						correctCount = true;
-					} catch (NumberFormatException ne) {
-						System.out.println("Please enter a number!");
-					}
-					if (COUNT <= 0) {
-						System.out.println("Please enter a positive number!");
-						correctCount = false;
-					}
-				}
-				correctIn = true;
-			} else if (in2.equals("N")) {
-				correctIn = true;
-			} else {
-				System.out.println("Please enter Y for yes and N for no!");
-			}
-		}
+		
+		
 		new GameOfLife().start();
 	}
 
