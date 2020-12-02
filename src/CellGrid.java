@@ -8,7 +8,12 @@ public class CellGrid {
 	private int numRows, numCols;
 	// private char blank = '-';
 	private static int TEMP = 0;
-
+	/**
+	 * constructor that initializes grid and sets private data members to the values passed-in
+	 * 
+	 * @param r denoting rows 
+	 * @param c denoting columns
+	 */
 	public CellGrid(int r, int c) {
 		grid = new boolean[r][c];
 		numRows = r;
