@@ -110,7 +110,7 @@ public class CellGrid {
 
 	/**
 	 * Getter method for columns
-	 * @return the number fo columns
+	 * @return the number of columns
 	 */
 	public int getC() {
 		return this.numCols;
