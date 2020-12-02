@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Main class of the program PRESS "R" AT ANY TIME FOR SPECIAL EFFECTS
@@ -40,7 +41,7 @@ public class GameOfLife extends Canvas implements Runnable {
 
 	final static String ESC = "\033["; // for clearing out stuff
 
-	final static int DELAY = 100; // 100ms delay between renders
+	final static int DELAY = 50; // 100ms delay between renders
 
 	Random rand = new Random(); // randomness
 
@@ -49,13 +50,14 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * spawner for the initial screen asigns mouse contol to different classes
 	 */
 	public void init() {
-
-		WIDTH = getWidth();
-		HEIGHT = getHeight();
-
+		if(HEIGHT == 0) {
+			WIDTH = boardLength;
+			HEIGHT = boardLength / 2;
+		}
+		
 		boolGrid = new CellGrid(boardLength / 2, boardLength);
 		boolSeq = new CellGrid(boardLength / 2, boardLength);
-
+		
 		popR = new int[boardLength / 10];
 		popC = new int[boardLength / 10];
 
@@ -164,9 +166,9 @@ public class GameOfLife extends Canvas implements Runnable {
 		}
 		float ofset = 0.9f;
 
-		for (int r = 0; r < boardLength / 2; r++) {
+		for (int r = 0; r < HEIGHT; r++) {
 			// for (int c = 0; c < boardLength; c++) {
-			for (int c = 0; c < boardLength; c++) {
+			for (int c = 0; c < WIDTH; c++) {
 				if (Math.random() > ofset) {
 					// board.add(r, c, (byte) 0);
 					boolGrid.set(r, c, true);
@@ -305,6 +307,51 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * @param args which is a string array of arguments
 	 */
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		boolean correctNumH = false;
+		boolean correctNumW = false;
+		boolean correctIn  = false;
+		String in = "";
+		
+		while(!correctIn) {
+			System.out.println("Would you like to enter the dimensions(Y or N) (Default is Height = 25 and Width = 50)?");
+			in = scan.next();
+			if(in.equals("Y")) {
+				while(!correctNumH) {
+					System.out.print("Enter the height: ");
+					try {
+						HEIGHT = scan.nextInt();
+						correctNumH = true; 
+					}catch(NumberFormatException ne) {
+						System.out.println("Please enter a number!");
+					}
+					if(HEIGHT <= 0) {
+						System.out.println("Please enter a positive number!");
+						correctNumH = false;
+					}
+				}
+				while(!correctNumW) {
+					System.out.print("Enter the width: ");
+					try {
+						WIDTH = scan.nextInt();
+						correctNumW = true; 
+					}catch(NumberFormatException ne) {
+						System.out.println("Please enter a number!");
+					}
+					if(WIDTH <= 0) {
+						System.out.println("Please enter a positive number!");
+						correctNumW = false;
+					}
+				}
+				correctIn = true;
+			}else if(in.equals("N")) {
+				correctIn = true;
+			}else {
+				System.out.println("Please enter Y for yes and N for no!");
+			}
+		}
+		
+		
 		new GameOfLife().start();
 	}
 
