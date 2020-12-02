@@ -117,7 +117,7 @@ public class CellGrid {
 	}
 
 	/**
-	 * Converts the grid to a string square "*" for live cells and " " for dead cells
+	 * Converts the grid to a string square made up of "*" for live cells and " " for dead cells
 	 */
 	public String toString() {
 		String ans = "";
