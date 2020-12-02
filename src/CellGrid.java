@@ -32,7 +32,7 @@ public class CellGrid {
 	 * 
 	 * @param r
 	 * @param c
-	 * @return parameters
+	 * @return
 	 */
 	public boolean get(int r, int c) {
 		if (checkInRange(r, c))
@@ -48,6 +48,7 @@ public class CellGrid {
 	 * @return
 	 */
 	public boolean set(int r, int c, boolean x) {
+		// TODO Auto-generated method stub
 		if (checkInRange(r, c)) {
 			grid[r][c] = x;
 			return true;
@@ -76,6 +77,13 @@ public class CellGrid {
 		set(r, c, false);
 		return val;
 	}
+
+	/**
+	 * 
+	 */
+	 /*public int size() {
+		return 0;
+	 }*/
 	
 	/**
 	 * 
@@ -108,7 +116,30 @@ public class CellGrid {
 		}
 		return newGrid;
 	}
-	
+
+	/**
+	 * 
+	 * @param x
+	 * @return
+	 */
+	public boolean contains(boolean x) {
+
+		// return get();
+		return false;
+	}
+
+	/*
+	 * public int[] getLocation(Object x) { return null; }
+	 */
+
+	/*
+	 * 
+	 * public Object[][] toArray() { return null; }
+	 */
+
+	/*
+	 * public boolean isEmpty() { return false; }
+	 */
 	/**
 	 * 
 	 */
@@ -144,6 +175,7 @@ public class CellGrid {
 		for (int r = 0; r < numRows; r++) {
 			ans += "#";
 			for (int c = 0; c < numCols; c++) {
+
 				if (grid[r][c]) {
 					ans += "*" + " ";
 				} else {
