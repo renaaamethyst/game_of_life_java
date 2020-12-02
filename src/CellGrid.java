@@ -29,10 +29,11 @@ public class CellGrid {
 	}
 
 	/**
-	 * 
-	 * @param r
-	 * @param c
-	 * @return
+	 * checks if parameters are in range of grid. If true, returns boolean value in 
+	 * that position. Else, returns false.
+	 * @param r denoting row
+	 * @param c denoting column
+	 * @return boolean value
 	 */
 	public boolean get(int r, int c) {
 		if (checkInRange(r, c))
@@ -41,11 +42,11 @@ public class CellGrid {
 	}
 
 	/**
-	 * 
-	 * @param r
-	 * @param c
-	 * @param x
-	 * @return
+	 * checks if parameters are in range of grid. If true, sets grid position to 
+	 * given value
+	 * @param r denoting row
+	 * @param c denoting column
+	 * @param x denoting a boolean value
 	 */
 	public boolean set(int r, int c, boolean x) {
 		// TODO Auto-generated method stub
@@ -57,52 +58,36 @@ public class CellGrid {
 	}
 
 	/**
-	 * 
-	 * @param r
-	 * @param c
-	 * @param x
-	 */
-	public void add(int r, int c, boolean x) {
-		set(r, c, x);
-	}
-
-	/**
-	 * 
-	 * @param r
-	 * @param c
-	 * @return
+	  * removes "cell" by changing boolean value to false
+	 * @param r denoting row
+	 * @param c denoting column
+	 * @return removed boolean value
 	 */
 	public boolean remove(int r, int c) {
 		boolean val = get(r, c);
 		set(r, c, false);
 		return val;
 	}
-
-	/**
-	 * 
-	 */
-	 /*public int size() {
-		return 0;
-	 }*/
 	
 	/**
-	 * 
-	 * @return
+	 * getter
+	 * @return number of rows in grid
 	 */
-	public int numRows() {
+	public int getR() {
 		return numRows;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * getter
+	 * @return number of columns in grid
 	 */
-	public int numColumns() {
+	public int getC() {
 		return numCols;
 	}
 
 	/**
-	 * 
+	 * clones grid
+	 * @return new grid
 	 */
 	public CellGrid clone() {
 		CellGrid newGrid = new CellGrid(this.getR(), this.getC());
@@ -123,25 +108,11 @@ public class CellGrid {
 	 * @return
 	 */
 	public boolean contains(boolean x) {
-
-		// return get();
 		return false;
 	}
 
-	/*
-	 * public int[] getLocation(Object x) { return null; }
-	 */
-
-	/*
-	 * 
-	 * public Object[][] toArray() { return null; }
-	 */
-
-	/*
-	 * public boolean isEmpty() { return false; }
-	 */
 	/**
-	 * 
+	 * clears grid by making all values false
 	 */
 	public void clear() {
 		for (int r = 0; r < numRows; r++) {
@@ -152,23 +123,7 @@ public class CellGrid {
 	}
 
 	/**
-	 * 
-	 * @return
-	 */
-	public int getR() {
-		return this.numRows;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getC() {
-		return this.numCols;
-	}
-
-	/**
-	 * 
+	 * returns grid
 	 */
 	public String toString() {
 		String ans = "";
