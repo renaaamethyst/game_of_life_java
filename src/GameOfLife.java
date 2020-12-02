@@ -1,12 +1,10 @@
-import java.awt.Canvas;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 
 
-public class GameOfLife extends Canvas implements Runnable {
+public class GameOfLife  implements Runnable {
 	private static final long serialVersionUID = 7417043461517810865L;
 
 	public static CellGrid boolGrid;
@@ -29,7 +27,7 @@ public class GameOfLife extends Canvas implements Runnable {
 	public static int WIDTH, HEIGHT; // dimensions of the window
 	public static int COUNT = 0; // starting live-cell count, if inputed by user
 
-	private BufferedImage preState = null; // contain the image of a prestate
+	
 	// public static STATE state = STATE.START; // keeps the state of the program
 	public static STATE state = STATE.GAME;
 
@@ -162,16 +160,16 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * Displays the grid on the console
 	 */
 	private void render() {
-		System.out.println("GENERATION: " + generations);
+		System.out.println("\t\t GENERATION: " + generations);
 		System.out.println(boolGrid.toString());
 	}
 
 	/**
 	 * A loop that calculates the frame rate and updates the console with the new grid
+	 * this is borrowed from a game engine and optimizes for even frames per second. 
 	 */
 	public void run() {
 		init();
-		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -190,18 +188,12 @@ public class GameOfLife extends Canvas implements Runnable {
 			}
 			cpuFree = true;
 			render();
-			
-
-
 			if (state == STATE.GAME) {
-
 				boolGrid = nextGen(boolGrid);
 				generations++;
-
 				try {
 					this.thread.sleep(DELAY);
 				} catch (InterruptedException e) {
-
 					e.printStackTrace();
 				}
 			}
@@ -210,7 +202,6 @@ public class GameOfLife extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-
 				this.frames = frames;
 				frames = 0;
 				updates = 0;
@@ -231,10 +222,8 @@ public class GameOfLife extends Canvas implements Runnable {
 		boolean correctIn = false;
 		String in = "";
 		String in2 = "";
-
 		while (!correctIn) {
-			System.out
-					.println("Would you like to enter the dimensions(Y or N) (Default is using a randomly-generated dimensions of max 50 and min 5)?");
+			System.out.println("Would you like to enter the dimensions(Y or N) (Default is using a randomly-generated dimensions of max 50 and min 5)?");
 			in = scan.next();
 			if (in.equals("Y")) {
 				while (!correctNumH) {
