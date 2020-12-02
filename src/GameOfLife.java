@@ -52,10 +52,6 @@ public class GameOfLife extends Canvas implements Runnable {
 	 * classes
 	 */
 	public void init() {
-		if (HEIGHT == 0) {
-			WIDTH = boardLength;
-			HEIGHT = boardLength / 2;
-		}
 
 		boolGrid = new CellGrid(HEIGHT, WIDTH);
 		boolSeq = new CellGrid(HEIGHT, WIDTH);
@@ -354,6 +350,8 @@ public class GameOfLife extends Canvas implements Runnable {
 				}
 				correctIn = true;
 			} else if (in.equals("N")) {
+				WIDTH = boardLength;
+				HEIGHT = boardLength / 2;
 				correctIn = true;
 			} else {
 				System.out.println("Please enter Y for yes and N for no!");
@@ -367,7 +365,7 @@ public class GameOfLife extends Canvas implements Runnable {
 			in2 = scan.next();
 			if (in2.equals("Y")) {
 				while (!correctCount) {
-					System.out.print("Enter the starting live-cell count: ");
+					System.out.print("Enter the starting live-cell count (Enter a number <= the grid area: " + (HEIGHT * WIDTH) + "): ");
 					try {
 						COUNT = scan.nextInt();
 						correctCount = true;
@@ -376,6 +374,10 @@ public class GameOfLife extends Canvas implements Runnable {
 					}
 					if (COUNT <= 0) {
 						System.out.println("Please enter a positive number!");
+						correctCount = false;
+					}
+					if(COUNT > HEIGHT * WIDTH) {
+						System.out.println("Please enter a staring live-count that is less than or equal to the grid area (" + (HEIGHT * WIDTH) + "): ");
 						correctCount = false;
 					}
 				}
