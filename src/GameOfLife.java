@@ -188,6 +188,8 @@ public class GameOfLife  implements Runnable {
 			}
 			cpuFree = true;
 			render();
+			if(boolGrid.toString().indexOf('*') < 0)
+				System.exit(0);
 			if (state == STATE.GAME) {
 				boolGrid = nextGen(boolGrid);
 				generations++;
