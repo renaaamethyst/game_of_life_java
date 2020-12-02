@@ -303,7 +303,7 @@ public class GameOfLife extends Canvas implements Runnable {
 				}
 				correctIn = true;
 			} else if (in2.equals("N")) {
-				COUNT = (int) ((Math.random()*(HEIGHT*WIDTH)) + (HEIGHT*WIDTH)/10);
+				COUNT = (int) ((Math.random()*(HEIGHT*WIDTH-(HEIGHT*WIDTH)/10)) + (HEIGHT*WIDTH)/10);
 				correctIn = true;
 			} else {
 				System.out.println("Please enter Y for yes and N for no!");
