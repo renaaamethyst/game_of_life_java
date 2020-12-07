@@ -18,16 +18,23 @@ public class Play {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(500), this::doStep));
         this.timeline.setCycleCount(Timeline.INDEFINITE);
     }
-
+    /**
+     * draws simulation generation by generation
+     * @param actionEvent
+     */
     private void doStep(ActionEvent actionEvent) {
         this.simulation.nextGen();
         this.mainView.draw();
     }
-
+    /**
+     * starts program
+     */
     public void start() {
         this.timeline.play();
     }
-
+    /**
+     * stops program
+     */
     public void stop() {
         this.timeline.stop();
     }
