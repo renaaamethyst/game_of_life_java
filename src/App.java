@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 /**
  * JavaFX App
  */
@@ -43,12 +45,18 @@ public class App extends Application {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == yes){
-            Height();
-            Width();
+        	//System.out.println("Getting User h and w");
+            //Height();
+            //Width();
+        	String inputRows = JOptionPane.showInputDialog("Height", "20");
+			String inputCols = JOptionPane.showInputDialog("Width", "20");
+			height = Integer.parseInt(inputRows);
+			width = Integer.parseInt(inputCols);
+			
         } else if (result.get() == no) {
             height = (int) (Math.random()*50)+5;
             width = (int) (Math.random()*50)+5;
-       }
+        }
         count = (int) ((Math.random()*(height*width-(height*width)/5)) + (height*width)/10);
 
         MainView mainView = new MainView(height, width, count);
@@ -138,6 +146,7 @@ public class App extends Application {
     }
 
     public void Height(){
+    	
         Scene scene;
         Stage window = new Stage();
         window.setTitle("Height");
@@ -157,5 +166,6 @@ public class App extends Application {
         if(check == true){
             height = Integer.parseInt(h.getText());
         }
+        
     }
 }
