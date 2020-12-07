@@ -16,7 +16,12 @@ public class MainView extends VBox {
     private Simulation initial;
     boolean run = false;
     private boolean playing;
-
+    /**
+     * construction that sets private fields to what has been passed in 
+     * @param height
+     * @param width
+     * @param count
+     */
     public MainView(int height, int width, int count) {
         this.canvas = new Canvas(400, 400);
 
@@ -30,7 +35,9 @@ public class MainView extends VBox {
         this.simulation = new Simulation(height, width, count);
         this.play = new Play(this, this.simulation);
     }
-
+    /**
+     * fills canvas/window with dead and live cells denoted by different colors
+     */
     public void draw() {
         GraphicsContext g = this.canvas.getGraphicsContext2D();
         g.setTransform(this.affine);
@@ -67,23 +74,36 @@ public class MainView extends VBox {
         }
 
     }
-
+    /**
+     * getter for instance of Simulation class
+     * @return simulation
+     */
     public Simulation getSimulation() {
         return this.simulation;
     }
-
+    /**
+     * 
+     * @return play
+     */
     public Play getPlay() {
         return this.play;
     }
-
+    /**
+     * sets playing to true to continue simulation
+     */
     public void play(){
         playing = true;
     }
-
+    /**
+     * sets playing to false to pause the simulation
+     */
     public void pause(){
         playing = false;
     }
-
+    /**
+     * 
+     * @return playing
+     */
     public boolean isPlaying(){
         return playing;
     }
