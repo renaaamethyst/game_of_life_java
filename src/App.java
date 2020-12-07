@@ -1,3 +1,4 @@
+
 package org.example;
 
 import javafx.application.Application;
@@ -15,8 +16,6 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-import javax.swing.JOptionPane;
-
 /**
  * JavaFX App
  */
@@ -29,44 +28,50 @@ public class App extends Application {
     int width;
     int count;
     boolean check;
-
+    /**
+     * launches program
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }
-
-    @Override
+    /**
+     * asks if user would like to input their own variables or use randomized ones
+     * @Override
+     * @param stage
+     * @throws Exception
+     */
     public void start(Stage stage) throws Exception{
-       alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Dimensions");
-        alert.setContentText("Would you like to input the dimensions?");
-        yes = new ButtonType("Yes");
-        no = new ButtonType("Randomize");
-        alert.getButtonTypes().setAll(yes, no);
+        alert = new Alert(Alert.AlertType.NONE);
+         alert.setTitle("Dimensions");
+         alert.setContentText("Would you like to input the dimensions?");
+         yes = new ButtonType("Yes");
+         no = new ButtonType("Randomize");
+         alert.getButtonTypes().setAll(yes, no);
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == yes){
-        	//System.out.println("Getting User h and w");
-            //Height();
-            //Width();
-        	String inputRows = JOptionPane.showInputDialog("Height", "20");
-			String inputCols = JOptionPane.showInputDialog("Width", "20");
-			height = Integer.parseInt(inputRows);
-			width = Integer.parseInt(inputCols);
-			
-        } else if (result.get() == no) {
-            height = (int) (Math.random()*50)+5;
-            width = (int) (Math.random()*50)+5;
-        }
-        count = (int) ((Math.random()*(height*width-(height*width)/5)) + (height*width)/10);
+         Optional<ButtonType> result = alert.showAndWait();
+         if (result.get() == yes){
+         	String inputRows = JOptionPane.showInputDialog("Height", "20");
+ 			String inputCols = JOptionPane.showInputDialog("Width", "20");
+ 			height = Integer.parseInt(inputRows);
+ 			width = Integer.parseInt(inputCols);
+ 			
+         } else if (result.get() == no) {
+             height = (int) (Math.random()*50)+5;
+             width = (int) (Math.random()*50)+5;
+         }
+         count = (int) ((Math.random()*(height*width-(height*width)/5)) + (height*width)/10);
 
-        MainView mainView = new MainView(height, width, count);
-        Scene scene = new Scene(mainView, 640, 480);
-        stage.setScene(scene);
-        stage.show();
+         MainView mainView = new MainView(height, width, count);
+         Scene scene = new Scene(mainView, 640, 480);
+         stage.setScene(scene);
+         stage.show();
 
-        mainView.draw();
-    }
-
+         mainView.draw();
+     }
+    /**
+     * sets live-cell count
+     */
     private void count() {
         Scene scene;
         Stage window = new Stage();
@@ -90,29 +95,11 @@ public class App extends Application {
             window.close();
         }
     }
-
-    private void Width() {
-        Scene scene;
-        Stage window = new Stage();
-        window.setTitle("Width");
-
-        TextField h = new TextField();
-        submit = new Button("Submit");
-        submit.setOnAction(e -> ErrorChecking(h.getText()));
-
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(h, submit);
-
-        scene = new Scene(layout, 200, 200);
-        window.setScene(scene);
-        window.show();
-
-        if(check == true){
-            height = Integer.parseInt(h.getText());
-        }
-    }
-
+    /**
+     * error checks user input
+     * @param l
+     * @return num
+     */
     private int ErrorChecking(String l) {
         System.out.println(check + " here " + l);
         boolean correct = false;
@@ -143,29 +130,5 @@ public class App extends Application {
                     };
         }
         return num;
-    }
-
-    public void Height(){
-    	
-        Scene scene;
-        Stage window = new Stage();
-        window.setTitle("Height");
-
-        TextField h = new TextField();
-        submit = new Button("Submit");
-        submit.setOnAction(e -> ErrorChecking(h.getText()));
-
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(h, submit);
-
-        scene = new Scene(layout, 200, 200);
-        window.setScene(scene);
-        window.show();
-
-        if(check == true){
-            height = Integer.parseInt(h.getText());
-        }
-        
     }
 }
